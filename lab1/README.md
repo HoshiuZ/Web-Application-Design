@@ -1,0 +1,1 @@
+运行方法：将 `chat_server/server.cpp` 放在虚拟机或云服务器上运行，将 `QtClient/Client.h` 里的 `serverIp` 与 `serverPort` 按需更改，然后用 Qt 编译，打开编译产生的 `build\Desktop_Qt_6_9_0_MinGW_64_bit-Debug\debug` 里的 `Client.exe` 即可。
