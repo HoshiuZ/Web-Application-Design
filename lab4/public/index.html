@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>聊天室与物联网控制台</title>
+</head>
+<body>
+  <h2>Web用户聊天室</h2>
+  <input type="text" id="msgInput" placeholder="输入消息..." />
+  <button onclick="sendChat()">发送</button>
+  <br><br>
+
+  <input type="text" id="nodeId" placeholder="设备ID" />
+  <input type="text" id="cmdInput" placeholder="控制命令" />
+  <button onclick="sendCommand()">发送命令</button>
+
+  <h3>聊天/状态输出：</h3>
+  <pre id="output"></pre>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>网络聊天室</title>
+  <style>
+    #username-section {
+      margin-bottom: 10px;
+    }
+    #msg {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h2>聊天室</h2>
+
+  <div id="username-section">
+    <input id="username-input" placeholder="设置用户名" />
+    <button onclick="setUsername()">设置用户名</button>
+    <span id="current-username">当前用户名：匿名</span>
+  </div>
+
+  <input id="msg" placeholder="输入消息" disabled />
+  <button onclick="sendMsg()" disabled id="send-btn">发送</button>
+
+  <ul id="chat"></ul>
+
+  <script>
+    let username = "匿名";
+
+    const usernameInput = document.getElementById('username-input');
+    const currentUsernameSpan = document.getElementById('current-username');
+    const msgInput = document.getElementById('msg');
+    const sendBtn = document.getElementById('send-btn');
+
+    const ws = new WebSocket('ws://' + location.host);
+
+    ws.onmessage = (event) => {
+      const li = document.createElement('li');
+      li.innerText = event.data;
+      document.getElementById('chat').appendChild(li);
+    };
+
+    function setUsername() {
+      const name = usernameInput.value.trim();
+      if (name === "") {
+        alert("用户名不能为空！");
+        return;
+      }
+      username = name;
+      currentUsernameSpan.innerText = "当前用户名：" + username;
+      usernameInput.value = "";
+      msgInput.disabled = false;
+      sendBtn.disabled = false;
+      msgInput.focus();
+    }
+
+    function sendMsg() {
+      const message = msgInput.value.trim();
+      if (!message) return;
+
+      const msgObj = {
+        user: username,
+        text: message
+      };
+
+      ws.send(JSON.stringify(msgObj));
+      msgInput.value = '';
+    }
+  </script>
+</body>
+</html>
